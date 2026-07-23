@@ -13,6 +13,8 @@ from datetime import date
 # Neurology 77(13):1272-1275. doi:10.1212/WNL.0b013e318230208a
 # Table 2 provides stratified means and SDs in overlapping 10-year age bins,
 # each centered on the midpoint shown in BRACKET_CENTERS below.
+# All 30 mean/SD cells below have been verified against Table 2 of the primary
+# source article (means without the 1-point education correction).
 moca_norms = pd.DataFrame({
     'Age_Bracket': ["<35", "30-40", "35-45", "40-50", "45-55", "50-60", "55-65", "60-70", "65-75", "70-80"],
     'lt12_mean': [22.80, 22.84, 22.11, 21.36, 20.75, 19.94, 19.60, 19.30, 18.37, 16.07],
@@ -25,7 +27,9 @@ moca_norms = pd.DataFrame({
 
 # Representative center age for each overlapping bracket. Used to map an exact
 # age to the single most appropriate normative bracket (nearest center wins),
-# removing the ambiguity of the overlapping bins.
+# removing the ambiguity of the overlapping bins. This follows the article's own
+# rationale: e.g., a 55-year-old is better represented by the bracket whose
+# midpoint they fall on (50-60) than one where they sit at the extreme (45-55).
 BRACKET_CENTERS = [
     (30, "<35"), (35, "30-40"), (40, "35-45"), (45, "40-50"), (50, "45-55"),
     (55, "50-60"), (60, "55-65"), (65, "60-70"), (70, "65-75"), (75, "70-80"),
